@@ -20,6 +20,16 @@ body {
     color: var(--dark);
 }
 
+.screen {
+    display: none;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+}
+
 .screen.active {
     display: flex;
 }
