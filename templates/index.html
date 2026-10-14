@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Um presente para você 💖</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+   <!-- Tela inicial -->
+    <section id="intro-screen" class="screen active">
+        <div class="intro-box">
+            <h1>Para <span class="highlight">Evelyn</span>💕</h1>
+            <p>Eu preparei um mapa especial só para você.<br>Cada lugar guarda uma surpresa.</p>
+            <button id="start-btn" class="btn">Abrir o mapa</button>
+        </div>
+    </section>
+
+    <!-- Tela do mapa -->
+     <section id="map-screen" class="screen">
+        <h2 class="map-title">Toque em cada lugar para descobrir</h2>
+        <div class="map-wrapper">
+            <div class="map-area">
+                {% for spot in spots %}
+                <button
+                class="map-spot {% if spot.final %}map-spot--final{% endif %}"
+                style="left: {{ spot.x }}%; top: {{ spot.y }}%;"
+                data-id="{{ spot.id }}"
+                data-name="{{ spot.name }}"
+                data-message="{{ spot.message }}"
+                data-final="{{ 'true' if spot.final else 'false' }}"
+            >
+                <span class="map-spot-icon">{{ spot.icon }}</span>
+                <span class="map-spot-label">{{ spot.name }}</span>
+            </button>
+             {% endfor %}
+          </div>
+        </div>
+        <p class="progress-text" id="progress-text">0 de {{ spots|length }} lugares descobertos</p>
+     </section>
+
+     <!-- Modal de mensagem -->
+    <div id="message-modal" class="modal">
+        <div class="modal-box">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <button id="modal-close" class="btn btn-secondary">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Tela Final -->
+     <section id="final-screen" class="screen">
+        <div class="intro-box">
+            <h1>Fim da aventura! 🎉</h1>
+            <p id="final-message"></p>
+        </div>
+     </section>
+
+     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
